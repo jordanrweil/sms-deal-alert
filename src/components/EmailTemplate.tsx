@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
 import heroImage from '@/assets/hero-fintech.jpg';
 import videoThumbnail from '@/assets/video-thumbnail.jpg';
+import LogoProcessor from './LogoProcessor';
 
 const EmailTemplate = () => {
+  const [logoSrc, setLogoSrc] = useState('/lovable-uploads/3095ec13-b9d6-404d-9cd1-fe66af9185db.png');
+
+  useEffect(() => {
+    // Check for processed logo in localStorage
+    const processedLogo = localStorage.getItem('processed-logo');
+    if (processedLogo) {
+      setLogoSrc(processedLogo);
+    }
+  }, []);
+
   return (
     <div className="bg-background font-sans">
+      <LogoProcessor />
       {/* Email Container */}
       <div className="max-w-2xl mx-auto bg-white shadow-xl" style={{ boxShadow: 'var(--shadow-hero)' }}>
         
@@ -24,12 +36,13 @@ const EmailTemplate = () => {
           </div>
           
           <div className="flex items-center justify-between relative z-10">
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight">Capital Solutions Bancorp</h1>
-              <p className="text-sm opacity-90 mt-1 flex items-center gap-2">
-                <Zap className="h-4 w-4" />
-                Flexible funding in 7 days or less
-              </p>
+            <div className="flex items-center gap-4">
+              <img 
+                src={logoSrc} 
+                alt="Capital Solutions Bancorp Logo" 
+                className="h-8 w-auto object-contain"
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </div>
             <div className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
               <div className="text-lg font-bold">CSB</div>
@@ -210,10 +223,12 @@ const EmailTemplate = () => {
             {/* Company Info */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center">
-                  <span className="font-bold text-sm">CSB</span>
-                </div>
-                <span className="font-semibold text-lg">Capital Solutions Bancorp</span>
+                <img 
+                  src={logoSrc} 
+                  alt="Capital Solutions Bancorp Logo" 
+                  className="h-8 w-auto object-contain"
+                  style={{ filter: 'brightness(0) invert(1)' }}
+                />
               </div>
               
               <div className="space-y-2 text-sm opacity-90">
