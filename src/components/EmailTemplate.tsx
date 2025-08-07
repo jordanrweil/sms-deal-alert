@@ -151,7 +151,7 @@ const EmailTemplate = () => {
                     <TrendingUp className="h-4 w-4 text-white" />
                   </div>
                   <h4 className="text-xl font-semibold text-email-text">
-                    See How We Provide Flexible Working Capital
+                    See Why Brokers Are Joining Our SMS List
                   </h4>
                 </div>
                 
