@@ -231,7 +231,7 @@ const EmailTemplate = () => {
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <img 
-                  src={logoSrc} 
+                  src="/lovable-uploads/3095ec13-b9d6-404d-9cd1-fe66af9185db.png" 
                   alt="Capital Solutions Bancorp Logo" 
                   className="h-8 w-auto object-contain"
                 />
