@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
-import heroImage from '@/assets/hero-fintech.jpg';
+import heroImage from '@/assets/hero-deal-notification.jpg';
 // Video thumbnail is now using uploaded image
 import LogoProcessor from './LogoProcessor';
 
