@@ -40,12 +40,17 @@ const EmailTemplate = () => {
               <img 
                 src={logoSrc} 
                 alt="Capital Solutions Bancorp Logo" 
-                className="h-8 w-auto object-contain"
+                className="h-12 w-auto object-contain"
                 style={{ filter: 'brightness(0) invert(1)' }}
               />
             </div>
-            <div className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
-              <div className="text-lg font-bold">CSB</div>
+            <div className="flex items-center">
+              <img 
+                src="/lovable-uploads/964210a2-b9db-4105-8d42-47795d435b0c.png" 
+                alt="Capital Solutions Bancorp Key Logo" 
+                className="h-10 w-auto object-contain"
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </div>
           </div>
         </div>
