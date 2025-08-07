@@ -5,8 +5,8 @@ const Index = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-email-text mb-2">Capital Solutions Bancorp Email Template</h1>
-          <p className="text-email-text-light">Modern fintech email design for broker SMS opt-ins</p>
+          <h1 className="text-3xl font-bold text-email-text mb-2">Unlock Flash Bonuses & Deal Alerts</h1>
+          <p className="text-email-text-light">Get exclusive commission opportunities—via SMS only.</p>
         </div>
         
         <EmailTemplate />

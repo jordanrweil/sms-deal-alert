@@ -59,6 +59,7 @@ const EmailTemplate = () => {
             src={heroImage} 
             alt="Professional fintech background" 
             className="w-full h-64 object-cover"
+            style={{ filter: 'brightness(0.8)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-email-hero/90 via-email-hero/70 to-transparent flex items-center">
             <div className="px-8 text-white">
@@ -66,7 +67,7 @@ const EmailTemplate = () => {
                 <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
                   <TrendingUp className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm font-medium uppercase tracking-wide">Exclusive Opportunities</span>
+                <span className="text-sm font-medium uppercase tracking-wide">Broker-Only Flash Bonuses</span>
               </div>
               <h2 className="text-4xl font-bold mb-4 leading-tight">
                 Deals Worth<br />Texting About
@@ -82,19 +83,11 @@ const EmailTemplate = () => {
             
             {/* Body Copy */}
             <div className="text-center max-w-lg mx-auto">
-              <div className="flex justify-center mb-4">
-                <div className="flex items-center gap-2 bg-gradient-to-r from-accent/10 to-primary/10 px-4 py-2 rounded-full border border-accent/20">
-                  <Star className="h-4 w-4 text-accent" />
-                  <span className="text-sm font-medium text-email-text">Premium Deal Alerts</span>
-                </div>
-              </div>
-              
-              <h3 className="text-2xl font-semibold text-email-text mb-4">
-                Stay Ahead of the Market
+              <h3 className="text-3xl font-bold text-email-text mb-4">
+                SMS = First Dibs
               </h3>
               <p className="text-lg text-email-text-light leading-relaxed mb-8">
-                We send out flash commission bonuses and deal alerts—<span className="font-semibold text-email-text">via SMS only</span>. 
-                Don't miss opportunities in working capital lines, asset-based loans, and PO financing deals.
+                We send SMS-only bonuses & alerts to our broker list. Get notified first—before deals disappear.
               </p>
               
               {/* Features */}
@@ -103,19 +96,19 @@ const EmailTemplate = () => {
                   <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <Zap className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-sm text-email-text-light">Instant Alerts</span>
+                  <span className="text-sm text-email-text-light">Real-Time Alerts</span>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <DollarSign className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-sm text-email-text-light">Flash Bonuses</span>
+                  <span className="text-sm text-email-text-light">Bonus Windows</span>
                 </div>
                 <div className="text-center">
                   <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
                     <Shield className="h-6 w-6 text-accent" />
                   </div>
-                  <span className="text-sm text-email-text-light">No Spam</span>
+                  <span className="text-sm text-email-text-light">No Spam Ever</span>
                 </div>
               </div>
               
@@ -127,7 +120,7 @@ const EmailTemplate = () => {
                   rel="noopener noreferrer"
                 >
                   <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg relative z-10" style={{ boxShadow: 'var(--shadow-button)' }}>
-                    Opt Into SMS Updates
+                    Join the SMS List
                   </Button>
                 </a>
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg blur-lg transform scale-110"></div>
@@ -136,7 +129,7 @@ const EmailTemplate = () => {
               <div className="flex items-center justify-center gap-4 mt-4 text-sm text-email-text-light">
                 <span className="flex items-center gap-1">
                   <CheckCircle className="h-3 w-3 text-accent" />
-                  Instant alerts
+                  Real-time alerts
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircle className="h-3 w-3 text-accent" />
@@ -144,7 +137,7 @@ const EmailTemplate = () => {
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircle className="h-3 w-3 text-accent" />
-                  No spam
+                  No spam ever
                 </span>
               </div>
             </div>
@@ -160,7 +153,7 @@ const EmailTemplate = () => {
                     <TrendingUp className="h-4 w-4 text-white" />
                   </div>
                   <h4 className="text-xl font-semibold text-email-text">
-                    See Why Brokers Are Joining Our SMS List
+                    Why Brokers Join Our List
                   </h4>
                 </div>
                 
@@ -187,6 +180,10 @@ const EmailTemplate = () => {
                     0:54
                   </div>
                 </a>
+                
+                <p className="text-email-text-light mt-4 text-sm">
+                  Watch the 54-second video. Then join the list.
+                </p>
               </div>
             </Card>
 
@@ -205,19 +202,26 @@ const EmailTemplate = () => {
                     Need to Discuss a Deal?
                   </h4>
                 </div>
-                <p className="text-email-text-light mb-6">
+                <p className="text-email-text-light mb-4">
                   Talk directly with our team about your working capital needs
+                </p>
+                <p className="text-sm text-email-text-light mb-6 italic">
+                  Want to text your deals to us instead? Join the SMS list and reply directly to our alerts.
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="email-secondary" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
-                    <Phone className="h-4 w-4" />
-                    Call (800) 499-6179
-                  </Button>
-                  <Button variant="email-cta" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
-                    <Calendar className="h-4 w-4" />
-                    Book a Meeting
-                  </Button>
+                  <a href="tel:+18004996179">
+                    <Button variant="email-secondary" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
+                      <Phone className="h-4 w-4" />
+                      Call (800) 499-6179
+                    </Button>
+                  </a>
+                  <a href="https://calendly.com/kevin-csb/15min" target="_blank" rel="noopener noreferrer">
+                    <Button variant="email-cta" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
+                      <Calendar className="h-4 w-4" />
+                      Book a Meeting
+                    </Button>
+                  </a>
                 </div>
               </div>
             </Card>
@@ -251,13 +255,13 @@ const EmailTemplate = () => {
               <div>
                 <h5 className="font-semibold mb-3">Connect With Us</h5>
                 <div className="flex gap-3">
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="#linkedin-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
-                    <Twitter className="h-5 w-5" />
+                  <a href="#linkedin-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="#email-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Mail className="h-5 w-5" />
                   </a>
                 </div>
