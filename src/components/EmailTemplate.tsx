@@ -1,23 +1,36 @@
 import React from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Phone, Calendar, Mail, Linkedin, Twitter } from 'lucide-react';
+import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
 import heroImage from '@/assets/hero-fintech.jpg';
 
 const EmailTemplate = () => {
   return (
     <div className="bg-background font-sans">
       {/* Email Container */}
-      <div className="max-w-2xl mx-auto bg-white shadow-xl">
+      <div className="max-w-2xl mx-auto bg-white shadow-xl" style={{ boxShadow: 'var(--shadow-hero)' }}>
+        
+        {/* Decorative top border */}
+        <div className="h-1 bg-gradient-to-r from-accent via-primary to-accent"></div>
         
         {/* Header */}
-        <div className="bg-email-hero text-email-hero-foreground px-8 py-6">
-          <div className="flex items-center justify-between">
+        <div className="bg-email-hero text-email-hero-foreground px-8 py-6 relative overflow-hidden">
+          {/* Background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-4 left-4 w-20 h-20 border border-white/20 rounded-full"></div>
+            <div className="absolute top-12 right-8 w-16 h-16 border border-white/20 rounded-full"></div>
+            <div className="absolute bottom-4 left-1/3 w-12 h-12 border border-white/20 rounded-full"></div>
+          </div>
+          
+          <div className="flex items-center justify-between relative z-10">
             <div>
               <h1 className="text-2xl font-bold tracking-tight">Capital Solutions Bancorp</h1>
-              <p className="text-sm opacity-90 mt-1">Flexible funding in 7 days or less</p>
+              <p className="text-sm opacity-90 mt-1 flex items-center gap-2">
+                <Zap className="h-4 w-4" />
+                Flexible funding in 7 days or less
+              </p>
             </div>
-            <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-br from-white/20 to-white/10 rounded-lg flex items-center justify-center backdrop-blur-sm border border-white/20">
               <div className="text-lg font-bold">CSB</div>
             </div>
           </div>
@@ -30,12 +43,18 @@ const EmailTemplate = () => {
             alt="Professional fintech background" 
             className="w-full h-64 object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-email-hero/80 to-email-hero/60 flex items-center">
+          <div className="absolute inset-0 bg-gradient-to-r from-email-hero/90 via-email-hero/70 to-transparent flex items-center">
             <div className="px-8 text-white">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                  <TrendingUp className="h-4 w-4 text-white" />
+                </div>
+                <span className="text-sm font-medium uppercase tracking-wide">Exclusive Opportunities</span>
+              </div>
               <h2 className="text-4xl font-bold mb-4 leading-tight">
                 Deals Worth<br />Texting About
               </h2>
-              <div className="w-20 h-1 bg-accent rounded"></div>
+              <div className="w-20 h-1 bg-gradient-to-r from-accent to-transparent rounded"></div>
             </div>
           </div>
         </div>
@@ -46,6 +65,13 @@ const EmailTemplate = () => {
             
             {/* Body Copy */}
             <div className="text-center max-w-lg mx-auto">
+              <div className="flex justify-center mb-4">
+                <div className="flex items-center gap-2 bg-gradient-to-r from-accent/10 to-primary/10 px-4 py-2 rounded-full border border-accent/20">
+                  <Star className="h-4 w-4 text-accent" />
+                  <span className="text-sm font-medium text-email-text">Premium Deal Alerts</span>
+                </div>
+              </div>
+              
               <h3 className="text-2xl font-semibold text-email-text mb-4">
                 Stay Ahead of the Market
               </h3>
@@ -54,51 +80,108 @@ const EmailTemplate = () => {
                 Don't miss opportunities in working capital lines, asset-based loans, and PO financing deals.
               </p>
               
-              {/* Primary CTA */}
-              <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg">
-                Opt Into SMS Updates
-              </Button>
+              {/* Features */}
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Zap className="h-6 w-6 text-accent" />
+                  </div>
+                  <span className="text-sm text-email-text-light">Instant Alerts</span>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <DollarSign className="h-6 w-6 text-accent" />
+                  </div>
+                  <span className="text-sm text-email-text-light">Flash Bonuses</span>
+                </div>
+                <div className="text-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent/20 to-primary/20 rounded-lg flex items-center justify-center mx-auto mb-2">
+                    <Shield className="h-6 w-6 text-accent" />
+                  </div>
+                  <span className="text-sm text-email-text-light">No Spam</span>
+                </div>
+              </div>
               
-              <p className="text-sm text-email-text-light mt-4">
-                Instant alerts • Exclusive bonuses • No spam, just opportunities
-              </p>
+              {/* Primary CTA */}
+              <div className="relative">
+                <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg relative z-10" style={{ boxShadow: 'var(--shadow-button)' }}>
+                  Opt Into SMS Updates
+                </Button>
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg blur-lg transform scale-110"></div>
+              </div>
+              
+              <div className="flex items-center justify-center gap-4 mt-4 text-sm text-email-text-light">
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="h-3 w-3 text-accent" />
+                  Instant alerts
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="h-3 w-3 text-accent" />
+                  Exclusive bonuses
+                </span>
+                <span className="flex items-center gap-1">
+                  <CheckCircle className="h-3 w-3 text-accent" />
+                  No spam
+                </span>
+              </div>
             </div>
 
             {/* Video Section */}
-            <Card className="p-6 bg-email-section border-0">
-              <div className="text-center">
-                <h4 className="text-xl font-semibold text-email-text mb-4">
-                  See How We Provide Flexible Working Capital
-                </h4>
-                <div className="relative bg-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto">
+            <Card className="p-6 bg-gradient-to-br from-email-section to-white border border-gray-100 relative overflow-hidden" style={{ boxShadow: 'var(--shadow-card)' }}>
+              {/* Background decoration */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/10 to-transparent rounded-bl-full"></div>
+              
+              <div className="text-center relative z-10">
+                <div className="flex items-center justify-center gap-2 mb-4">
+                  <div className="w-8 h-8 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center">
+                    <TrendingUp className="h-4 w-4 text-white" />
+                  </div>
+                  <h4 className="text-xl font-semibold text-email-text">
+                    See How We Provide Flexible Working Capital
+                  </h4>
+                </div>
+                
+                <div className="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto border border-gray-200">
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-email-hero to-email-cta">
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
                       <div className="w-0 h-0 border-l-[16px] border-l-white border-y-[12px] border-y-transparent ml-1"></div>
                     </div>
                   </div>
                   <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
                     Working Capital Solutions
                   </div>
+                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">
+                    2:34
+                  </div>
                 </div>
               </div>
             </Card>
 
             {/* Support Section */}
-            <Card className="p-8 bg-gradient-to-r from-email-section to-white border border-gray-100">
-              <div className="text-center">
-                <h4 className="text-2xl font-semibold text-email-text mb-2">
-                  Need to Discuss a Deal?
-                </h4>
+            <Card className="p-8 bg-gradient-to-r from-email-section via-white to-email-section border border-gray-100 relative overflow-hidden" style={{ boxShadow: 'var(--shadow-card)' }}>
+              {/* Background elements */}
+              <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-br-full"></div>
+              <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-accent/10 to-transparent rounded-tl-full"></div>
+              
+              <div className="text-center relative z-10">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center">
+                    <Phone className="h-4 w-4 text-white" />
+                  </div>
+                  <h4 className="text-2xl font-semibold text-email-text">
+                    Need to Discuss a Deal?
+                  </h4>
+                </div>
                 <p className="text-email-text-light mb-6">
                   Talk directly with our team about your working capital needs
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="email-secondary" size="lg" className="flex items-center gap-2">
-                      <Phone className="h-4 w-4" />
-                      Call (800) 499-6179
-                    </Button>
-                  <Button variant="email-cta" size="lg" className="flex items-center gap-2">
+                  <Button variant="email-secondary" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
+                    <Phone className="h-4 w-4" />
+                    Call (800) 499-6179
+                  </Button>
+                  <Button variant="email-cta" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
                     <Calendar className="h-4 w-4" />
                     Book a Meeting
                   </Button>
