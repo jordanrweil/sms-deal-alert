@@ -9,32 +9,52 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 215 25% 27%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 215 25% 27%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Fintech Primary - Deep Blue */
+    --primary: 220 85% 15%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Fintech Secondary - Light Blue */
+    --secondary: 220 20% 97%;
+    --secondary-foreground: 220 85% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 15% 96%;
+    --muted-foreground: 220 8% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Fintech Accent - Electric Blue */
+    --accent: 210 100% 48%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 210 100% 48%;
+
+    /* Email-specific tokens */
+    --email-hero: 220 85% 15%;
+    --email-hero-foreground: 0 0% 100%;
+    --email-section: 0 0% 98%;
+    --email-cta: 210 100% 48%;
+    --email-cta-hover: 210 100% 42%;
+    --email-text: 215 25% 27%;
+    --email-text-light: 220 8% 46%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(220 85% 15%), hsl(220 85% 12%));
+    --gradient-cta: linear-gradient(135deg, hsl(210 100% 48%), hsl(210 100% 42%));
+    
+    /* Shadows */
+    --shadow-email: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-button: 0 2px 8px rgba(52, 152, 219, 0.25);
 
     --radius: 0.5rem;
 

@@ -52,6 +52,15 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				email: {
+					hero: 'hsl(var(--email-hero))',
+					'hero-foreground': 'hsl(var(--email-hero-foreground))',
+					section: 'hsl(var(--email-section))',
+					cta: 'hsl(var(--email-cta))',
+					'cta-hover': 'hsl(var(--email-cta-hover))',
+					text: 'hsl(var(--email-text))',
+					'text-light': 'hsl(var(--email-text-light))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

@@ -18,6 +18,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        "email-cta": "bg-email-cta text-white hover:bg-email-cta-hover font-semibold shadow-lg transform transition-all duration-200 hover:scale-[1.02] hover:shadow-xl",
+        "email-secondary": "bg-white border-2 border-email-cta text-email-cta hover:bg-email-cta hover:text-white font-semibold transition-all duration-200",
       },
       size: {
         default: "h-10 px-4 py-2",
