@@ -47,7 +47,7 @@ const EmailTemplate = () => {
               <img 
                 src="/lovable-uploads/964210a2-b9db-4105-8d42-47795d435b0c.png" 
                 alt="Capital Solutions Bancorp Key Logo" 
-                className="h-10 w-auto object-contain"
+                className="h-12 w-auto object-contain"
               />
             </div>
           </div>
@@ -187,7 +187,7 @@ const EmailTemplate = () => {
               </div>
             </Card>
 
-            {/* Support Section */}
+            {/* Contact Section */}
             <Card className="p-8 bg-gradient-to-r from-email-section via-white to-email-section border border-gray-100 relative overflow-hidden" style={{ boxShadow: 'var(--shadow-card)' }}>
               {/* Background elements */}
               <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-primary/10 to-transparent rounded-br-full"></div>
@@ -199,29 +199,22 @@ const EmailTemplate = () => {
                     <Phone className="h-4 w-4 text-white" />
                   </div>
                   <h4 className="text-2xl font-semibold text-email-text">
-                    Need to Discuss a Deal?
+                    Want to Move Faster?
                   </h4>
                 </div>
-                <p className="text-email-text-light mb-4">
-                  Talk directly with our team about your working capital needs
-                </p>
-                <p className="text-sm text-email-text-light mb-6 italic">
-                  Want to text your deals to us instead? Join the SMS list and reply directly to our alerts.
+                <p className="text-email-text-light mb-6 max-w-md mx-auto">
+                  Call Kevin today to discuss your deal and see if it qualifies for our latest commission bonuses.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <a href="tel:+18004996179">
-                    <Button variant="email-secondary" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
-                      <Phone className="h-4 w-4" />
-                      Call (800) 499-6179
-                    </Button>
-                  </a>
-                  <a href="https://calendly.com/kevin-csb/15min" target="_blank" rel="noopener noreferrer">
-                    <Button variant="email-cta" size="lg" className="flex items-center gap-2" style={{ boxShadow: 'var(--shadow-button)' }}>
-                      <Calendar className="h-4 w-4" />
-                      Book a Meeting
-                    </Button>
-                  </a>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-center gap-3 text-lg">
+                    <Phone className="h-5 w-5 text-accent" />
+                    <span className="font-semibold text-email-text">(561) 229-5883</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-3 text-lg">
+                    <Mail className="h-5 w-5 text-accent" />
+                    <span className="font-semibold text-email-text">kevin@capitalsolutionsbancorp.com</span>
+                  </div>
                 </div>
               </div>
             </Card>
