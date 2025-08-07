@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
 import heroImage from '@/assets/hero-fintech.jpg';
-import videoThumbnail from '@/assets/video-thumbnail.jpg';
+// Video thumbnail is now using uploaded image
 import LogoProcessor from './LogoProcessor';
 
 const EmailTemplate = () => {
@@ -162,8 +162,8 @@ const EmailTemplate = () => {
                   className="relative block bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer group"
                 >
                   <img 
-                    src={videoThumbnail} 
-                    alt="Why Brokers Are Joining Our SMS List - Video Thumbnail" 
+                    src="/lovable-uploads/964210a2-b9db-4105-8d42-47795d435b0c.png" 
+                    alt="New SMS List: Unlock Exclusive Broker Offers - Video Thumbnail" 
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
