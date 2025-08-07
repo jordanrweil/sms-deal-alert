@@ -209,7 +209,7 @@ const EmailTemplate = () => {
                 <div className="space-y-3">
                   <div className="flex items-center justify-center gap-3 text-lg">
                     <Phone className="h-5 w-5 text-accent" />
-                    <span className="font-semibold text-email-text">(561) 229-5883</span>
+                    <span className="font-semibold text-email-text">(561) 436-5883</span>
                   </div>
                   <div className="flex items-center justify-center gap-3 text-lg">
                     <Mail className="h-5 w-5 text-accent" />
