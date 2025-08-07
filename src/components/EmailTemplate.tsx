@@ -45,7 +45,7 @@ const EmailTemplate = () => {
             </div>
             <div className="flex items-center">
               <img 
-                src="/lovable-uploads/964210a2-b9db-4105-8d42-47795d435b0c.png" 
+                src="/lovable-uploads/3095ec13-b9d6-404d-9cd1-fe66af9185db.png" 
                 alt="Capital Solutions Bancorp Key Logo" 
                 className="h-12 w-auto object-contain"
               />
