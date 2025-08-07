@@ -3,6 +3,7 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
 import heroImage from '@/assets/hero-fintech.jpg';
+import videoThumbnail from '@/assets/video-thumbnail.jpg';
 
 const EmailTemplate = () => {
   return (
@@ -141,19 +142,29 @@ const EmailTemplate = () => {
                   </h4>
                 </div>
                 
-                <div className="relative bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto border border-gray-200">
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-email-hero to-email-cta">
-                    <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30">
-                      <div className="w-0 h-0 border-l-[16px] border-l-white border-y-[12px] border-y-transparent ml-1"></div>
+                <a 
+                  href="https://youtu.be/OrWAVW2lB84" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="relative block bg-gradient-to-br from-gray-100 to-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer group"
+                >
+                  <img 
+                    src={videoThumbnail} 
+                    alt="Why Brokers Are Joining Our SMS List - Video Thumbnail" 
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-colors flex items-center justify-center">
+                    <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/30 group-hover:bg-white group-hover:scale-110 transition-all duration-300">
+                      <div className="w-0 h-0 border-l-[16px] border-l-gray-800 border-y-[12px] border-y-transparent ml-1"></div>
                     </div>
                   </div>
-                  <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
-                    Working Capital Solutions
+                  <div className="absolute bottom-4 left-4 text-white text-sm font-medium drop-shadow-lg">
+                    Why Brokers Are Joining Our SMS List
                   </div>
-                  <div className="absolute top-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">
-                    2:34
+                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">
+                    0:54
                   </div>
-                </div>
+                </a>
               </div>
             </Card>
 
