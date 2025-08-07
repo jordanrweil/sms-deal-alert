@@ -46,8 +46,8 @@ const EmailTemplate = () => {
             <div className="flex items-center">
               <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
                 <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5-5-5h5v-13a1 1 0 011-1h4a1 1 0 011 1v13z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12l.01 0M12 12l.01 0M16 12l.01 0" />
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2" strokeWidth={2}></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18" strokeWidth={2}></line>
                 </svg>
               </div>
             </div>
