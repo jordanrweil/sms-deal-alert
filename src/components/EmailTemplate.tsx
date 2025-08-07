@@ -15,7 +15,7 @@ const EmailTemplate = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold tracking-tight">Capital Solutions Bancorp</h1>
-              <p className="text-sm opacity-90 mt-1">Funding Complex B2B Deals</p>
+              <p className="text-sm opacity-90 mt-1">Flexible funding in 7 days or less</p>
             </div>
             <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center">
               <div className="text-lg font-bold">CSB</div>
@@ -51,7 +51,7 @@ const EmailTemplate = () => {
               </h3>
               <p className="text-lg text-email-text-light leading-relaxed mb-8">
                 We send out flash commission bonuses and deal alerts—<span className="font-semibold text-email-text">via SMS only</span>. 
-                Don't miss opportunities in medical financing, second-position deals, and tough-to-place transactions.
+                Don't miss opportunities in working capital lines, asset-based loans, and PO financing deals.
               </p>
               
               {/* Primary CTA */}
@@ -68,7 +68,7 @@ const EmailTemplate = () => {
             <Card className="p-6 bg-email-section border-0">
               <div className="text-center">
                 <h4 className="text-xl font-semibold text-email-text mb-4">
-                  See How We Fund Complex Deals
+                  See How We Provide Flexible Working Capital
                 </h4>
                 <div className="relative bg-gray-200 rounded-lg overflow-hidden aspect-video max-w-md mx-auto">
                   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-email-hero to-email-cta">
@@ -77,7 +77,7 @@ const EmailTemplate = () => {
                     </div>
                   </div>
                   <div className="absolute bottom-4 left-4 text-white text-sm font-medium">
-                    Complex B2B Financing Solutions
+                    Working Capital Solutions
                   </div>
                 </div>
               </div>
@@ -90,14 +90,14 @@ const EmailTemplate = () => {
                   Need to Discuss a Deal?
                 </h4>
                 <p className="text-email-text-light mb-6">
-                  Talk directly with Kevin about your complex financing needs
+                  Talk directly with our team about your working capital needs
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="email-secondary" size="lg" className="flex items-center gap-2">
-                    <Phone className="h-4 w-4" />
-                    Call Kevin Now
-                  </Button>
+                    <Button variant="email-secondary" size="lg" className="flex items-center gap-2">
+                      <Phone className="h-4 w-4" />
+                      Call (800) 499-6179
+                    </Button>
                   <Button variant="email-cta" size="lg" className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
                     Book a Meeting
@@ -123,10 +123,9 @@ const EmailTemplate = () => {
               </div>
               
               <div className="space-y-2 text-sm opacity-90">
-                <p>123 Financial District</p>
-                <p>New York, NY 10004</p>
-                <p>Phone: (555) 123-4567</p>
-                <p>Email: deals@capitalsolutions.com</p>
+                <p>www.capitalsolutionsbancorp.com</p>
+                <p>Phone: (800) 499-6179</p>
+                <p>Email: info@capitalsolutionsbancorp.com</p>
               </div>
             </div>
 
