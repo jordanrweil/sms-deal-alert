@@ -121,9 +121,15 @@ const EmailTemplate = () => {
               
               {/* Primary CTA */}
               <div className="relative">
-                <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg relative z-10" style={{ boxShadow: 'var(--shadow-button)' }}>
-                  Opt Into SMS Updates
-                </Button>
+                <a 
+                  href="https://d47a4ef0.sibforms.com/serve/MUIFAE75bAVqwSGDlFKSfLQV9weYBNcNu5OLBtu4lOLROQYlCFzpLUBwJYnHK28VLMm3jQpSm1PBtJQKzRU-98DYW34FPPiS77klaqxsghCFqT0YMxdqSXysRlMlZxD-EEjbxO7fJhbM_pXL2QhufpPCWi7k6rMKTC4juBtU_C7mARbMyVr6mV0tbYFs5UzUlzfpwd7sgbIlJ-7Z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg relative z-10" style={{ boxShadow: 'var(--shadow-button)' }}>
+                    Opt Into SMS Updates
+                  </Button>
+                </a>
                 <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg blur-lg transform scale-110"></div>
               </div>
               
