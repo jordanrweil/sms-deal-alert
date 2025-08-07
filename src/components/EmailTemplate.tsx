@@ -41,7 +41,6 @@ const EmailTemplate = () => {
                 src={logoSrc} 
                 alt="Capital Solutions Bancorp Logo" 
                 className="h-12 w-auto object-contain"
-                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </div>
             <div className="flex items-center">
@@ -49,7 +48,6 @@ const EmailTemplate = () => {
                 src="/lovable-uploads/964210a2-b9db-4105-8d42-47795d435b0c.png" 
                 alt="Capital Solutions Bancorp Key Logo" 
                 className="h-10 w-auto object-contain"
-                style={{ filter: 'brightness(0) invert(1)' }}
               />
             </div>
           </div>
@@ -232,7 +230,6 @@ const EmailTemplate = () => {
                   src={logoSrc} 
                   alt="Capital Solutions Bancorp Logo" 
                   className="h-8 w-auto object-contain"
-                  style={{ filter: 'brightness(0) invert(1)' }}
                 />
               </div>
               
