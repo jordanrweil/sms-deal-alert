@@ -33,7 +33,7 @@ const EmailTemplate = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-email-hero/80 to-email-hero/60 flex items-center">
             <div className="px-8 text-white">
               <h2 className="text-4xl font-bold mb-4 leading-tight">
-                Deals Worth<br />Talking About
+                Deals Worth<br />Texting About
               </h2>
               <div className="w-20 h-1 bg-accent rounded"></div>
             </div>
