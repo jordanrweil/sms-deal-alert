@@ -38,17 +38,18 @@ const EmailTemplate = () => {
           <div className="flex items-center justify-between relative z-10">
             <div className="flex items-center gap-4">
               <img 
-                src={logoSrc} 
+                src="/lovable-uploads/3095ec13-b9d6-404d-9cd1-fe66af9185db.png" 
                 alt="Capital Solutions Bancorp Logo" 
                 className="h-12 w-auto object-contain"
               />
             </div>
             <div className="flex items-center">
-              <img 
-                src="/lovable-uploads/3095ec13-b9d6-404d-9cd1-fe66af9185db.png" 
-                alt="Capital Solutions Bancorp Key Logo" 
-                className="h-12 w-auto object-contain"
-              />
+              <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+                <svg className="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5-5-5h5v-13a1 1 0 011-1h4a1 1 0 011 1v13z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12l.01 0M12 12l.01 0M16 12l.01 0" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
