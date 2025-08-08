@@ -1,7 +1,11 @@
-name: Publish static email to Pages
+name: Drop-to-Brevo: make email-build from Lovable export
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'drop/**'
+      - 'email/**'
+      - '.github/workflows/build-and-pages.yml'
 
 permissions:
   contents: write
@@ -14,30 +18,57 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Build email-build from the /email folder
-      - name: Build email-build
+      - name: Prepare email-build (from drop/ or fallback to email/)
         shell: bash
         run: |
           set -e
           rm -rf email-build
-          mkdir -p email-build
-          # copy HTML + assets folder from /email
-          cp -r email/* email-build/
+          mkdir -p email-build/assets
 
-      # Rewrite /paths in HTML to absolute GitHub Pages URLs
-      - name: Rewrite asset paths
+          # 1) choose source HTML (prefer drop/index.html)
+          if [ -f drop/index.html ]; then
+            SRC=drop/index.html
+          elif [ -f email/index.html ]; then
+            SRC=email/index.html
+          elif [ -f email/email.html ]; then
+            SRC=email/email.html
+          else
+            echo "No source HTML found. Add drop/index.html or email/index.html"; exit 1
+          fi
+          cp "$SRC" email-build/email.html
+
+          # 2) sweep in assets from common locations (non-fatal if missing)
+          rsync -a --ignore-missing-args drop/assets/        email-build/assets/ 2>/dev/null || true
+          rsync -a --ignore-missing-args email/assets/       email-build/assets/ 2>/dev/null || true
+          rsync -a --ignore-missing-args public/             email-build/assets/ 2>/dev/null || true
+          rsync -a --ignore-missing-args src/assets/         email-build/assets/ 2>/dev/null || true
+
+      - name: Rewrite paths and clean HTML
         shell: bash
         run: |
           set -e
           BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-          if ls email-build/*.html >/dev/null 2>&1; then
-            find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
-              -e "s|src=\"/|src=\"${BASE}/|g" \
-              -e "s|href=\"/|href=\"${BASE}/|g" \
-              -e "s|url(/|url(${BASE}/|g"
-          else
-            echo "No HTML files in email-build"; exit 1
-          fi
+          HTML=email-build/email.html
+
+          # Remove Cloudflare email decode script (if present)
+          sed -i '/cloudflare-static\/email-decode.min.js/d' "$HTML"
+
+          # Replace Cloudflare obfuscated email anchors with a real mailto (adjust as needed)
+          sed -i 's|<a href="/cdn-cgi[^"]*"[^>]*>[^<]*</a>|<a href="mailto:ksampson@capitalsolutionsbancorp.com">ksampson@capitalsolutionsbancorp.com</a>|g' "$HTML"
+
+          # Normalize common relative paths to absolute Pages URLs
+          sed -i \
+            -e "s|https://your-domain.com/|${BASE}/|g" \
+            -e "s|src=\"/|src=\"${BASE}/|g" \
+            -e "s|href=\"/|href=\"${BASE}/|g" \
+            -e "s|url(/|url(${BASE}/|g" \
+            -e "s|src=\"\\./assets/|src=\"${BASE}/assets/|g" \
+            -e "s|href=\"\\./assets/|href=\"${BASE}/assets/|g" \
+            -e "s|url(\\./assets/|url(${BASE}/assets/|g" \
+            -e "s|src=\"assets/|src=\"${BASE}/assets/|g" \
+            -e "s|href=\"assets/|href=\"${BASE}/assets/|g" \
+            -e "s|url(assets/|url(${BASE}/assets/|g" \
+            "$HTML"
 
       - name: Commit compiled email
         shell: bash
@@ -45,7 +76,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add email-build || true
-          git commit -m "Update static email" || echo "No changes"
+          git commit -m "Update Brevo-ready email from drop/" || echo "No changes"
           git push || true
 
       - name: Upload artifact for Pages
