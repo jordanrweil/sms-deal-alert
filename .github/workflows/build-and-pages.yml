@@ -67,15 +67,16 @@ jobs:
           if [ -d build ]; then echo "dir=build" >> $GITHUB_OUTPUT; exit 0; fi
           echo "No dist/ or build/ folder found"; exit 1
 
-      - name: Prepare email-build (absolute URLs)
-        run: |
-          BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-          mkdir -p email-build
-          cp -r "${{ steps.out.outputs.dir }}"/* email-build/
-          find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
-            -e "s|src=\"/|src=\"${BASE}/|g" \
-            -e "s|href=\"/|href=\"${BASE}/|g" \
-            -e "s|url(/|url(${BASE}/|g"
+      - name: Prepare email-build
+  run: |
+    BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+    mkdir -p email-build
+    cp -r email/* email-build/
+    # make image paths absolute
+    find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
+      -e "s|src=\"/|src=\"${BASE}/email/assets/|g" \
+      -e "s|href=\"/|href=\"${BASE}/email/assets/|g" \
+      -e "s|url(/|url(${BASE}/email/assets/|g"
 
       - name: Commit compiled email
         run: |
