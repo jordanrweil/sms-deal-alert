@@ -208,14 +208,29 @@ const EmailTemplate = () => {
                 </p>
                 
                 <div className="space-y-3">
+                  <div className="text-lg font-semibold text-email-text">Kevin Sampson</div>
                   <div className="flex items-center justify-center gap-3 text-lg">
                     <Phone className="h-5 w-5 text-accent" />
                     <span className="font-semibold text-email-text">(561) 436-5883</span>
                   </div>
                   <div className="flex items-center justify-center gap-3 text-lg">
                     <Mail className="h-5 w-5 text-accent" />
-                    <span className="font-semibold text-email-text">kevin@capitalsolutionsbancorp.com</span>
+                    <span className="font-semibold text-email-text">ksampson@capitalsolutionsbancorp.com</span>
                   </div>
+                </div>
+
+                {/* Secondary CTA duplicated */}
+                <div className="relative mt-6 flex justify-center">
+                  <a 
+                    href="https://d47a4ef0.sibforms.com/serve/MUIFAE75bAVqwSGDlFKSfLQV9weYBNcNu5OLBtu4lOLROQYlCFzpLUBwJYnHK28VLMm3jQpSm1PBtJQKzRU-98DYW34FPPiS77klaqxsghCFqT0YMxdqSXysRlMlZxD-EEjbxO7fJhbM_pXL2QhufpPCWi7k6rMKTC4juBtU_C7mARbMyVr6mV0tbYFs5UzUlzfpwd7sgbIlJ-7Z"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="email-cta" size="lg" className="px-12 py-4 text-lg relative z-10" style={{ boxShadow: 'var(--shadow-button)' }}>
+                      Join the SMS List
+                    </Button>
+                  </a>
+                  <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 rounded-lg blur-lg transform scale-110"></div>
                 </div>
               </div>
             </Card>
