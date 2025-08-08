@@ -1,0 +1,106 @@
+name: Drop-to-Brevo (make email-build from Lovable export)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'drop/**'
+      - 'email/**'
+      - '.github/workflows/drop-to-brevo.yml'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build email-build (pick source + sweep assets)
+        shell: bash
+        run: |
+          set -e
+          rm -rf email-build
+          mkdir -p email-build/assets
+
+          # choose source HTML (prefer drop/index.html)
+          if [ -f drop/index.html ]; then
+            SRC=drop/index.html
+          elif [ -f email/index.html ]; then
+            SRC=email/index.html
+          elif [ -f email/email.html ]; then
+            SRC=email/email.html
+          else
+            echo "No source HTML found. Add drop/index.html or email/index.html"; exit 1
+          fi
+          cp "$SRC" email-build/email.html
+
+          # sweep assets (ignore missing dirs)
+          rsync -a drop/assets/  email-build/assets/  2>/dev/null || true
+          rsync -a email/assets/ email-build/assets/ 2>/dev/null || true
+          rsync -a public/       email-build/assets/ 2>/dev/null || true
+          rsync -a src/assets/   email-build/assets/ 2>/dev/null || true
+
+      - name: Rewrite paths and clean HTML (Python)
+        run: |
+          python3 - << 'PY'
+          import os, re, sys
+          base = f"https://{os.environ['GITHUB_REPOSITORY_OWNER']}.github.io/{os.environ['GITHUB_REPOSITORY'].split('/')[-1]}"
+          html_path = "email-build/email.html"
+          try:
+            s = open(html_path, encoding="utf-8").read()
+          except FileNotFoundError:
+            print("email-build/email.html not found", file=sys.stderr)
+            sys.exit(1)
+
+          # remove Cloudflare email decode script
+          s = re.sub(r'<script[^>]*cloudflare-static/email-decode\.min\.js.*?</script>', '', s, flags=re.S|re.I)
+
+          # replace Cloudflare obfuscated email anchor with plain mailto (customize if needed)
+          s = re.sub(r'<a href="/cdn-cgi[^"]*"[^>]*>[^<]*</a>',
+                     '<a href="mailto:ksampson@capitalsolutionsbancorp.com">ksampson@capitalsolutionsbancorp.com</a>',
+                     s, flags=re.I)
+
+          # normalize paths to absolute Pages URLs
+          s = s.replace("https://your-domain.com/", base + "/")
+          s = re.sub(r'src="/',  f'src="{base}/',  s)
+          s = re.sub(r'href="/', f'href="{base}/', s)
+          s = re.sub(r'url\(/',  f'url({base}/',   s)
+
+          # handle "./assets" and "assets" forms
+          s = re.sub(r'src="\./assets/',  f'src="{base}/assets/',  s)
+          s = re.sub(r'href="\./assets/', f'href="{base}/assets/', s)
+          s = re.sub(r'url\(\./assets/',  f'url({base}/assets/',   s)
+          s = re.sub(r'src="assets/',     f'src="{base}/assets/',  s)
+          s = re.sub(r'href="assets/',    f'href="{base}/assets/', s)
+          s = re.sub(r'url\(assets/',     f'url({base}/assets/',   s)
+
+          open(html_path, "w", encoding="utf-8").write(s)
+          PY
+
+      - name: Commit compiled email
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add email-build || true
+          git commit -m "Update Brevo-ready email" || echo "No changes"
+          git push || true
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: email-build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    steps:
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
