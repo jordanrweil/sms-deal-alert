@@ -1,4 +1,4 @@
-name: Build email and publish assets
+name: Publish static email to Pages
 on:
   push:
     branches: [ main ]
@@ -9,81 +9,37 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      # Prefer npm if package-lock.json exists, then yarn, then pnpm, then bun
-      - name: Detect package manager
-        id: pm
-        run: |
-          if [ -f package-lock.json ]; then echo "pm=npm" >> $GITHUB_OUTPUT; exit 0; fi
-          if [ -f yarn.lock ]; then echo "pm=yarn" >> $GITHUB_OUTPUT; exit 0; fi
-          if [ -f pnpm-lock.yaml ]; then echo "pm=pnpm" >> $GITHUB_OUTPUT; exit 0; fi
-          if [ -f bun.lockb ]; then echo "pm=bun" >> $GITHUB_OUTPUT; exit 0; fi
-          echo "pm=npm" >> $GITHUB_OUTPUT
-
-      - name: Install deps
-        run: |
-          if [ "${{ steps.pm.outputs.pm }}" = "npm" ]; then
-            npm ci
-          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
-            corepack enable
-            yarn install --frozen-lockfile
-          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
-            corepack enable
-            pnpm i --frozen-lockfile
-          else
-            curl -fsSL https://bun.sh/install | bash
-            export BUN_INSTALL="$HOME/.bun"
-            export PATH="$BUN_INSTALL/bin:$PATH"
-            bun install
-          fi
-
-      - name: Build
-        env:
-          VITE_BASE: "/${{ github.event.repository.name }}/"
-        run: |
-          if [ "${{ steps.pm.outputs.pm }}" = "npm" ]; then
-            npm run build -- --base="${VITE_BASE}" || npm run build
-          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
-            yarn build --base "${VITE_BASE}" || yarn build
-          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
-            pnpm run build -- --base="${VITE_BASE}" || pnpm run build
-          else
-            export BUN_INSTALL="$HOME/.bun"
-            export PATH="$BUN_INSTALL/bin:$PATH"
-            bun run build -- --base="${VITE_BASE}" || bun run build
-          fi
-
-      - name: Determine build output
-        id: out
-        run: |
-          if [ -d dist ]; then echo "dir=dist" >> $GITHUB_OUTPUT; exit 0; fi
-          if [ -d build ]; then echo "dir=build" >> $GITHUB_OUTPUT; exit 0; fi
-          echo "No dist/ or build/ folder found"; exit 1
 
       - name: Prepare email-build
-  run: |
-    BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
-    mkdir -p email-build
-    cp -r email/* email-build/
-    # make image paths absolute
-    find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
-      -e "s|src=\"/|src=\"${BASE}/email/assets/|g" \
-      -e "s|href=\"/|href=\"${BASE}/email/assets/|g" \
-      -e "s|url(/|url(${BASE}/email/assets/|g"
+        shell: bash
+        run: |
+          set -e
+          BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+          rm -rf email-build
+          mkdir -p email-build
+          # copy everything from email/ (must contain email.html and assets/)
+          cp -r email/* email-build/ || true
+          # only rewrite if there are HTML files
+          if ls email-build/*.html >/dev/null 2>&1; then
+            find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
+              -e "s|src=\"/|src=\"${BASE}/email/assets/|g" \
+              -e "s|href=\"/|href=\"${BASE}/email/assets/|g" \
+              -e "s|url(/|url(${BASE}/email/assets/|g"
+          else
+            echo "No HTML files found in email/. Add email/email.html"; exit 1
+          fi
 
       - name: Commit compiled email
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add email-build || true
-          git commit -m "Update compiled email HTML" || echo "No changes"
+          git commit -m "Update static email" || echo "No changes"
           git push || true
 
       - name: Upload artifact for Pages
@@ -93,7 +49,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: publish
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
