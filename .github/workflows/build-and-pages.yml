@@ -33,14 +33,14 @@ jobs:
             echo "No HTML files found in email/. Add email/email.html"; exit 1
           fi
 
-      - name: Commit compiled email
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add email-build || true
-          git commit -m "Update static email" || echo "No changes"
-          git push || true
+     - name: Rewrite asset paths
+  run: |
+    BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
+    find email-build -type f -name "*.html" -print0 | xargs -0 sed -i \
+      -e "s|src=\"/|src=\"${BASE}/|g" \
+      -e "s|href=\"/|href=\"${BASE}/|g" \
+      -e "s|url(/|url(${BASE}/|g"
+
 
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
