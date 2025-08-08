@@ -1,3 +1,4 @@
+# Updated workflow
 name: Build email and publish assets
 on:
   push:
