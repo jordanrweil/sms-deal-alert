@@ -18,14 +18,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Prepare email-build (from drop/ or fallback to email/)
+      - name: Build email-build (pick source + sweep assets)
         shell: bash
         run: |
           set -e
           rm -rf email-build
           mkdir -p email-build/assets
 
-          # 1) choose source HTML (prefer drop/index.html)
+          # choose source HTML (prefer drop/index.html)
           if [ -f drop/index.html ]; then
             SRC=drop/index.html
           elif [ -f email/index.html ]; then
@@ -37,11 +37,11 @@ jobs:
           fi
           cp "$SRC" email-build/email.html
 
-          # 2) sweep in assets from common locations (non-fatal if missing)
-          rsync -a --ignore-missing-args drop/assets/        email-build/assets/ 2>/dev/null || true
-          rsync -a --ignore-missing-args email/assets/       email-build/assets/ 2>/dev/null || true
-          rsync -a --ignore-missing-args public/             email-build/assets/ 2>/dev/null || true
-          rsync -a --ignore-missing-args src/assets/         email-build/assets/ 2>/dev/null || true
+          # sweep assets (ignore missing dirs)
+          rsync -a drop/assets/  email-build/assets/  2>/dev/null || true
+          rsync -a email/assets/ email-build/assets/ 2>/dev/null || true
+          rsync -a public/       email-build/assets/ 2>/dev/null || true
+          rsync -a src/assets/   email-build/assets/ 2>/dev/null || true
 
       - name: Rewrite paths and clean HTML
         shell: bash
@@ -50,21 +50,21 @@ jobs:
           BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
           HTML=email-build/email.html
 
-          # Remove Cloudflare email decode script (if present)
+          # remove Cloudflare email decode script
           sed -i '/cloudflare-static\/email-decode.min.js/d' "$HTML"
 
-          # Replace Cloudflare obfuscated email anchors with a real mailto (adjust as needed)
+          # replace Cloudflare obfuscated anchor with plain mailto
           sed -i 's|<a href="/cdn-cgi[^"]*"[^>]*>[^<]*</a>|<a href="mailto:ksampson@capitalsolutionsbancorp.com">ksampson@capitalsolutionsbancorp.com</a>|g' "$HTML"
 
-          # Normalize common relative paths to absolute Pages URLs
+          # normalize paths to absolute Pages URLs
           sed -i \
             -e "s|https://your-domain.com/|${BASE}/|g" \
             -e "s|src=\"/|src=\"${BASE}/|g" \
             -e "s|href=\"/|href=\"${BASE}/|g" \
             -e "s|url(/|url(${BASE}/|g" \
-            -e "s|src=\"\\./assets/|src=\"${BASE}/assets/|g" \
-            -e "s|href=\"\\./assets/|href=\"${BASE}/assets/|g" \
-            -e "s|url(\\./assets/|url(${BASE}/assets/|g" \
+            -e "s|src=\"\./assets/|src=\"${BASE}/assets/|g" \
+            -e "s|href=\"\./assets/|href=\"${BASE}/assets/|g" \
+            -e "s|url(\./assets/|url(${BASE}/assets/|g" \
             -e "s|src=\"assets/|src=\"${BASE}/assets/|g" \
             -e "s|href=\"assets/|href=\"${BASE}/assets/|g" \
             -e "s|url(assets/|url(${BASE}/assets/|g" \
@@ -76,7 +76,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add email-build || true
-          git commit -m "Update Brevo-ready email from drop/" || echo "No changes"
+          git commit -m "Update Brevo-ready email" || echo "No changes"
           git push || true
 
       - name: Upload artifact for Pages
