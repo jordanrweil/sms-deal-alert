@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign } from 'lucide-react';
+import { Phone, Calendar, Mail, Linkedin, Twitter, TrendingUp, Shield, Zap, CheckCircle, Star, DollarSign, Youtube } from 'lucide-react';
 import heroImage from '@/assets/hero-deal-notification.jpg';
 // Video thumbnail is now using uploaded image
 import LogoProcessor from './LogoProcessor';
@@ -267,10 +267,10 @@ const EmailTemplate = () => {
                   <a href="https://www.linkedin.com/company/capital-solutions-bancorp/" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="https://www.linkedin.com/company/capital-solutions-bancorp/" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
-                    <Linkedin className="h-5 w-5" />
+                  <a href="https://www.youtube.com/@CapitalSolutionsBancorp" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                    <Youtube className="h-5 w-5" />
                   </a>
-                  <a href="#email-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="mailto:ksampson@capitalsolutionsbancorp.com" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Mail className="h-5 w-5" />
                   </a>
                 </div>
