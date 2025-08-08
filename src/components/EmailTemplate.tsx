@@ -264,10 +264,10 @@ const EmailTemplate = () => {
               <div>
                 <h5 className="font-semibold mb-3">Connect With Us</h5>
                 <div className="flex gap-3">
-                  <a href="#linkedin-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="https://www.linkedin.com/company/capital-solutions-bancorp/" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
-                  <a href="#linkedin-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <a href="https://www.linkedin.com/company/capital-solutions-bancorp/" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
                   <a href="#email-placeholder" className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center hover:bg-white/20 transition-colors">
