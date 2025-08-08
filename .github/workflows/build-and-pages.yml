@@ -1,4 +1,3 @@
-# Updated workflow
 name: Build email and publish assets
 on:
   push:
@@ -18,6 +17,7 @@ jobs:
         with:
           node-version: '20'
 
+      # Detect package manager (bun / pnpm / yarn / npm)
       - name: Detect package manager
         id: pm
         run: |
@@ -26,6 +26,7 @@ jobs:
           if [ -f yarn.lock ]; then echo "pm=yarn" >> $GITHUB_OUTPUT; exit 0; fi
           echo "pm=npm" >> $GITHUB_OUTPUT
 
+      # Install deps based on PM
       - name: Install deps
         run: |
           if [ "${{ steps.pm.outputs.pm }}" = "bun" ]; then
@@ -43,6 +44,7 @@ jobs:
             npm ci
           fi
 
+      # Build (Vite-friendly; falls back if --base unsupported)
       - name: Build
         env:
           VITE_BASE: "/${{ github.event.repository.name }}/"
@@ -50,15 +52,16 @@ jobs:
           if [ "${{ steps.pm.outputs.pm }}" = "bun" ]; then
             export BUN_INSTALL="$HOME/.bun"
             export PATH="$BUN_INSTALL/bin:$PATH"
-            bun run build -- --base="${VITE_BASE}"
+            bun run build -- --base="${VITE_BASE}" || bun run build
           elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
-            pnpm run build -- --base="${VITE_BASE}"
+            pnpm run build -- --base="${VITE_BASE}" || pnpm run build
           elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
             yarn build --base "${VITE_BASE}" || yarn build
           else
             npm run build -- --base="${VITE_BASE}" || npm run build
           fi
 
+      # Determine build dir: dist/ or build/
       - name: Determine build output
         id: out
         run: |
@@ -66,6 +69,7 @@ jobs:
           if [ -d build ]; then echo "dir=build" >> $GITHUB_OUTPUT; exit 0; fi
           echo "No dist/ or build/ folder found"; exit 1
 
+      # Copy to email-build/ and rewrite to ABSOLUTE GitHub Pages URLs
       - name: Prepare email-build (absolute URLs)
         run: |
           BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
@@ -76,6 +80,7 @@ jobs:
             -e "s|href=\"/|href=\"${BASE}/|g" \
             -e "s|url(/|url(${BASE}/|g"
 
+      # Commit compiled HTML back to the repo (so you can click Raw)
       - name: Commit compiled email
         run: |
           git config user.name "github-actions[bot]"
@@ -84,6 +89,7 @@ jobs:
           git commit -m "Update compiled email HTML" || echo "No changes"
           git push || true
 
+      # Publish email-build/ to GitHub Pages for public hosting
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
