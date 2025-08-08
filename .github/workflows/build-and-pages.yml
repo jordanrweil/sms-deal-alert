@@ -17,51 +17,49 @@ jobs:
         with:
           node-version: '20'
 
-      # Detect package manager (bun / pnpm / yarn / npm)
+      # Prefer npm if package-lock.json exists, then yarn, then pnpm, then bun
       - name: Detect package manager
         id: pm
         run: |
-          if [ -f bun.lockb ]; then echo "pm=bun" >> $GITHUB_OUTPUT; exit 0; fi
-          if [ -f pnpm-lock.yaml ]; then echo "pm=pnpm" >> $GITHUB_OUTPUT; exit 0; fi
+          if [ -f package-lock.json ]; then echo "pm=npm" >> $GITHUB_OUTPUT; exit 0; fi
           if [ -f yarn.lock ]; then echo "pm=yarn" >> $GITHUB_OUTPUT; exit 0; fi
+          if [ -f pnpm-lock.yaml ]; then echo "pm=pnpm" >> $GITHUB_OUTPUT; exit 0; fi
+          if [ -f bun.lockb ]; then echo "pm=bun" >> $GITHUB_OUTPUT; exit 0; fi
           echo "pm=npm" >> $GITHUB_OUTPUT
 
-      # Install deps based on PM
       - name: Install deps
         run: |
-          if [ "${{ steps.pm.outputs.pm }}" = "bun" ]; then
+          if [ "${{ steps.pm.outputs.pm }}" = "npm" ]; then
+            npm ci
+          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
+            corepack enable
+            yarn install --frozen-lockfile
+          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
+            corepack enable
+            pnpm i --frozen-lockfile
+          else
             curl -fsSL https://bun.sh/install | bash
             export BUN_INSTALL="$HOME/.bun"
             export PATH="$BUN_INSTALL/bin:$PATH"
             bun install
-          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
-            corepack enable
-            pnpm i --frozen-lockfile
-          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
-            corepack enable
-            yarn install --frozen-lockfile
-          else
-            npm ci
           fi
 
-      # Build (Vite-friendly; falls back if --base unsupported)
       - name: Build
         env:
           VITE_BASE: "/${{ github.event.repository.name }}/"
         run: |
-          if [ "${{ steps.pm.outputs.pm }}" = "bun" ]; then
+          if [ "${{ steps.pm.outputs.pm }}" = "npm" ]; then
+            npm run build -- --base="${VITE_BASE}" || npm run build
+          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
+            yarn build --base "${VITE_BASE}" || yarn build
+          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
+            pnpm run build -- --base="${VITE_BASE}" || pnpm run build
+          else
             export BUN_INSTALL="$HOME/.bun"
             export PATH="$BUN_INSTALL/bin:$PATH"
             bun run build -- --base="${VITE_BASE}" || bun run build
-          elif [ "${{ steps.pm.outputs.pm }}" = "pnpm" ]; then
-            pnpm run build -- --base="${VITE_BASE}" || pnpm run build
-          elif [ "${{ steps.pm.outputs.pm }}" = "yarn" ]; then
-            yarn build --base "${VITE_BASE}" || yarn build
-          else
-            npm run build -- --base="${VITE_BASE}" || npm run build
           fi
 
-      # Determine build dir: dist/ or build/
       - name: Determine build output
         id: out
         run: |
@@ -69,7 +67,6 @@ jobs:
           if [ -d build ]; then echo "dir=build" >> $GITHUB_OUTPUT; exit 0; fi
           echo "No dist/ or build/ folder found"; exit 1
 
-      # Copy to email-build/ and rewrite to ABSOLUTE GitHub Pages URLs
       - name: Prepare email-build (absolute URLs)
         run: |
           BASE="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}"
@@ -80,7 +77,6 @@ jobs:
             -e "s|href=\"/|href=\"${BASE}/|g" \
             -e "s|url(/|url(${BASE}/|g"
 
-      # Commit compiled HTML back to the repo (so you can click Raw)
       - name: Commit compiled email
         run: |
           git config user.name "github-actions[bot]"
@@ -89,7 +85,6 @@ jobs:
           git commit -m "Update compiled email HTML" || echo "No changes"
           git push || true
 
-      # Publish email-build/ to GitHub Pages for public hosting
       - name: Upload artifact for Pages
         uses: actions/upload-pages-artifact@v3
         with:
@@ -97,7 +92,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build 
+    needs: build
     steps:
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
